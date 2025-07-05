@@ -1,3 +1,4 @@
+import { TravelDocumentEnum } from 'src/travel/enums/travel-document-type.enum';
 import { TravelStatusEnum } from 'src/travel/enums/travel-status.enum';
 
 export class GetTravelDetailsResponseDto {
@@ -25,6 +26,7 @@ export class GetTravelDetailsResponseDto {
   documents: {
     id: string;
     name: string;
+    type: TravelDocumentEnum;
     downloadUrl: string;
   }[];
   totalValue: number;

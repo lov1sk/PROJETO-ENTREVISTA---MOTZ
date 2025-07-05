@@ -92,6 +92,7 @@ export class TravelService {
           id: document.id,
           name: document.name,
           downloadUrl: document.downloadUrl,
+          type: document.type,
         });
       }
 

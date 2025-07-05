@@ -16,13 +16,15 @@ export class TravelController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  getTravels(@Query('status') status: TravelStatusEnum) {
+  async getTravels(@Query('status') status: TravelStatusEnum) {
+    await new Promise((resolve) => setTimeout(() => resolve('OK'), 1000 * 3));
     return this.travelService.getTravels(new GetTravelsRequestDto({ status }));
   }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  getTravelDetails(@Param('id') id: string) {
+  async getTravelDetails(@Param('id') id: string) {
+    await new Promise((resolve) => setTimeout(() => resolve('OK'), 1000 * 3));
     return this.travelService.getTravelDetails(id);
   }
 }
