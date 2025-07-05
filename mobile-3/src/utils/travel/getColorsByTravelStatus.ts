@@ -1,7 +1,7 @@
 import { colors } from "@/theme/colors";
 import { TravelStatusEnum } from "@/types/travel/travel.type";
 
-export const getColorsByTravelStatus = (currentStatus: TravelStatusEnum) => {
+export const getColorsByTravelStatus = (currentStatus?: TravelStatusEnum) => {
   const colorMap: Record<TravelStatusEnum, { normal: string; light: string }> =
     {
       [TravelStatusEnum.PRE_SCHEDULING]: {

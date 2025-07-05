@@ -1,7 +1,7 @@
 import { TravelStatusEnum } from "@/types/travel/travel.type";
 
-export const getTravelStatusName = (currentStatus: TravelStatusEnum) => {
-  const colorMap: Record<TravelStatusEnum, string> = {
+export const getTravelStatusName = (currentStatus?: TravelStatusEnum) => {
+  const nameMap: Record<TravelStatusEnum, string> = {
     [TravelStatusEnum.PRE_SCHEDULING]: "Pré Agendamento",
     [TravelStatusEnum.PRE_SCHEDULE]: "",
     [TravelStatusEnum.SCHEDULED]: "Agendado",
@@ -13,5 +13,5 @@ export const getTravelStatusName = (currentStatus: TravelStatusEnum) => {
     [TravelStatusEnum.DONE]: "Concluido",
   };
 
-  return colorMap[currentStatus] ?? "";
+  return nameMap[currentStatus] ?? "";
 };
