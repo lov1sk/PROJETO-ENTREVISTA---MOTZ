@@ -10,6 +10,12 @@ export enum TravelStatusEnum {
   DONE = "done",
 }
 
+export enum TravelDocumentEnum {
+  CONTRACT = "contract",
+  NF = "invoice",
+  CTE = "cte",
+}
+
 export interface GetTravelsResponseItem {
   id: string;
   number: number;
@@ -36,4 +42,36 @@ export interface GetTravelsResponseItem {
   }[];
   shipperId: string;
   shipperName: string;
+}
+
+export interface GetTravelDetailsResponse {
+  id: string;
+  number: number;
+  contractNumber: string;
+  status: TravelStatusEnum;
+  deliveries: {
+    clientId: string;
+    clientName: string;
+    origin: {
+      city: string;
+      address: string;
+    };
+    destiny: {
+      city: string;
+      address: string;
+    };
+  }[];
+  products: {
+    id: string;
+    name: string;
+    value: number;
+  }[];
+  documents: {
+    id: string;
+    name: string;
+    downloadUrl: string;
+    type: TravelDocumentEnum;
+  }[];
+  totalValue: number;
+  totalDistanceInKm: number;
 }

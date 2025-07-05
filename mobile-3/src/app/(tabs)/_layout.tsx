@@ -1,4 +1,4 @@
-import BottomMenu from "@/components/BottomMenu";
+import BottomMenu from "@/components/Tabs/BottomMenu";
 import { queryClient } from "@/api/reactQuery";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
@@ -13,14 +13,12 @@ export default function IndexLayout() {
           backgroundColor: "#fff",
         }}
       >
-        <View style={{ flex: 1 }}>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-            }}
-          />
-        </View>
-        <BottomMenu />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        />
+        {/* <BottomMenu /> */}
       </View>
     </QueryClientProvider>
   );

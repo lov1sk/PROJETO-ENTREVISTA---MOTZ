@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { api, urls } from "../api";
-import { GetTravelsResponseItem } from "@/types/travel/travel.type";
+import {
+  GetTravelDetailsResponse,
+  GetTravelsResponseItem,
+} from "@/types/travel/travel.type";
 
 export const useGetTravels = () => {
   return useQuery<GetTravelsResponseItem[]>({
@@ -13,8 +16,8 @@ export const useGetTravels = () => {
   });
 };
 
-export const useGetTravelDetails = ({ id }: { id: string }) => {
-  return useQuery({
+export const useGetTravelDetails = ({ id }: { id?: string }) => {
+  return useQuery<GetTravelDetailsResponse>({
     queryKey: [`travel-${id}`],
     queryFn: async () => {
       const response = await api.get(
@@ -23,5 +26,6 @@ export const useGetTravelDetails = ({ id }: { id: string }) => {
 
       return response.data;
     },
+    enabled: !!id,
   });
 };
