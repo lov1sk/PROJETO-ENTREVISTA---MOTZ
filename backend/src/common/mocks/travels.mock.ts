@@ -70,8 +70,8 @@ export const TRAVELS_MOCK = [
       {
         id: 'deliver-3',
         travelId: 'travel-2',
-        clientId: CLIENT_MOCK[0].id,
-        client: CLIENT_MOCK[0],
+        clientId: CLIENT_MOCK[1].id,
+        client: CLIENT_MOCK[1],
         originDestiny: {
           id: 'origin-destiny-3',
           deliverId: 'deliver-3',
