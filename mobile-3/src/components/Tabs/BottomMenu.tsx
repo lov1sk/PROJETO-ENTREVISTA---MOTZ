@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import HelpAvatar from "@/assets/helpAvatar.png";
+import HelpAvatar from "@/assets/HelpAvatar.png";
 
 export default function BottomMenu() {
   const fakeMenuItems = ["Início", "Carteira", "", "Notificações", "Cadastro"];

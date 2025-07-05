@@ -19,7 +19,7 @@ export function TravelCardBadge({
         borderRadius: 16,
         backgroundColor,
         paddingHorizontal: 8,
-        paddingVertical: 10,
+        paddingVertical: 6,
       }}
     >
       {children}

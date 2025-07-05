@@ -5,14 +5,18 @@ import { toMoney } from "@/utils/numberUtils";
 import { colors } from "@/theme/colors";
 import { getTravelStatusName } from "@/utils/travel/getTravelStatusNames";
 import { TravelCardComponent } from "@/components/TravelCard/index";
-import { Button } from "./Button";
+import { Button } from "./Button/Button";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { Link, router } from "expo-router";
+import { Truck } from "lucide-react-native";
+import { getIconByTravelStatus } from "@/utils/travel/getIconByTravelStatus";
 
 interface TravelCardProps {
   item: GetTravelsResponseItem;
 }
 export function TravelCard({ item }: TravelCardProps) {
   const travelStatusName = getTravelStatusName(item.status);
+  const Icon = getIconByTravelStatus(item.status);
   const { light: lightBackground, normal: normalBackground } =
     getColorsByTravelStatus(item.status);
 
@@ -66,7 +70,7 @@ export function TravelCard({ item }: TravelCardProps) {
 
           {/** Badge Icon */}
           <TravelCardComponent.Icon>
-            <AntDesign name="truck" size={14} color={colors.theme.white} />
+            <Icon size={14} color={colors.theme.white} strokeWidth={3} />
           </TravelCardComponent.Icon>
         </TravelCardComponent.Badge>
       </TravelCardComponent.Section>
@@ -215,11 +219,13 @@ export function TravelCard({ item }: TravelCardProps) {
             </Text>
           </View>
         </TravelCardComponent.Section>
-        <Button
-          title="Ver mais destinos"
-          variant="text"
-          style={{ alignSelf: "flex-end" }}
-        />
+        <Link href={`travel/${item.id}`} asChild>
+          <Button
+            title="Ver mais destinos"
+            variant="text"
+            style={{ alignSelf: "flex-end" }}
+          />
+        </Link>
       </TravelCardComponent.Section>
       {/**
        * aqui tem que ter
@@ -252,7 +258,7 @@ export function TravelCard({ item }: TravelCardProps) {
       >
         {/** 1° Linha */}
         <TravelCardComponent.Section
-          style={{ flexDirection: "column", width: "70%" }}
+          style={{ flexDirection: "column", width: "65%" }}
         >
           <TravelCardComponent.FooterTitle>
             Valor da viagem
@@ -263,7 +269,7 @@ export function TravelCard({ item }: TravelCardProps) {
           </TravelCardComponent.FooterDescription>
         </TravelCardComponent.Section>
 
-        <TravelCardComponent.Section style={{ width: "30%" }}>
+        <TravelCardComponent.Section style={{ width: "35%" }}>
           <TravelCardComponent.ProductBadge
             productName={firstProduct.name}
             moreProductsQuantity={hasMoreThanOneProduct && moreProductsQuantity}
@@ -272,7 +278,7 @@ export function TravelCard({ item }: TravelCardProps) {
 
         {/** 2° Linha */}
         <TravelCardComponent.Section
-          style={{ flexDirection: "column", width: "70%" }}
+          style={{ flexDirection: "column", width: "65%" }}
         >
           <TravelCardComponent.FooterTitle>
             Saldo pendente
@@ -284,7 +290,7 @@ export function TravelCard({ item }: TravelCardProps) {
         </TravelCardComponent.Section>
 
         <TravelCardComponent.Section
-          style={{ flexDirection: "column", width: "30%" }}
+          style={{ flexDirection: "column", width: "35%" }}
         >
           <TravelCardComponent.FooterTitle>
             Embarcador
