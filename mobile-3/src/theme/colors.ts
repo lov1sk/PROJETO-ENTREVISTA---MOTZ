@@ -1,0 +1,28 @@
+export const colors = {
+  theme: {
+    white: "#FFFFFF",
+    orange: "#FF5402",
+    black: "#000000",
+    gray: "#373737",
+  },
+  states: {
+    preSchedulingLight: "#E5F2F3",
+    preScheduling: "#007B83",
+    processingScheduleLight: "#F6DDCC",
+    processingSchedule: "#D35400",
+    scheduledLight: "#E8D5F9",
+    scheduled: "#8A2BE2",
+    inProgressLight: "#E5F1FC",
+    inProgress: "#0028C8",
+    processingDischargeLight: "#CCECF3",
+    processingDischarge: "#00A2C3",
+    awaitingDischargeLight: "#F2E8D2",
+    awaitingDischarge: "#BC8A20",
+    underAnalisysLight: "#D2C7BC",
+    underAnalisys: "#684621",
+    canceledLight: "#DCDFE3",
+    canceled: "#F13443",
+    doneLight: "#CCE6D2",
+    done: "#006400",
+  },
+};

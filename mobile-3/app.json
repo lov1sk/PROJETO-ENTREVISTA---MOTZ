@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "mobile-3",
+    "slug": "mobile-3",
+    "scheme": "target",
+    "version": "1.0.0",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "com.anonymous.mobile3"
+    }
+  }
+}
