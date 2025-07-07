@@ -1,7 +1,4 @@
-import {
-  TravelDocumentEnum,
-  TravelStatusEnum,
-} from "@/types/travel/travel.type";
+import { TravelDocumentEnum } from "@/types/travel/travel.type";
 
 export const getTravelDocumentName = (type: TravelDocumentEnum) => {
   const nameMap: Record<TravelDocumentEnum, string> = {

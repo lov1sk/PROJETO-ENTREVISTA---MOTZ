@@ -1,6 +1,6 @@
 export enum TravelStatusEnum {
   PRE_SCHEDULING = "pre-scheduling",
-  PRE_SCHEDULE = "pre-schedule",
+  PROCESSING_SCHEDULE = "processing-schedule",
   SCHEDULED = "scheduled",
   IN_PROGRESS = "in-progress",
   PROCESSING_DISCHARGE = "processing-discharge",
@@ -30,10 +30,10 @@ export interface GetTravelsResponseItem {
       city: string;
       address: string;
     };
-    destiny: {
+    destinies: {
       city: string;
       address: string;
-    };
+    }[];
   }[];
   products: {
     id: string;
@@ -56,10 +56,10 @@ export interface GetTravelDetailsResponse {
       city: string;
       address: string;
     };
-    destiny: {
+    destinies: {
       city: string;
       address: string;
-    };
+    }[];
   }[];
   products: {
     id: string;
@@ -74,4 +74,16 @@ export interface GetTravelDetailsResponse {
   }[];
   totalValue: number;
   totalDistanceInKm: number;
+}
+
+export interface GetTravelDocumentsResponse {
+  id: string;
+  number: number;
+  contractNumber: string;
+  documents: {
+    id: string;
+    name: string;
+    downloadUrl: string;
+    type: TravelDocumentEnum;
+  }[];
 }

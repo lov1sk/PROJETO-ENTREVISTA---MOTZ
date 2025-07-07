@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 import { toMoney } from "@/utils/numberUtils";
 import { colors } from "@/theme/colors";
 import { getTravelStatusName } from "@/utils/travel/getTravelStatusNames";
-import { TravelCardComponent } from "@/components/TravelCard/index";
+import { CardComponent } from "@/components/Card/index";
 import { Button } from "./Button/Button";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { Link, router } from "expo-router";
@@ -30,12 +30,15 @@ export function TravelCard({ item }: TravelCardProps) {
   const hasMoreThanOneProduct = item.products.length > 1;
   const moreProductsQuantity = item.products.length - 1;
 
+  // destinies
+  const firstDestiny = firstDeliver?.destinies[0];
+  const hasMoreThanOneDestiny =
+    firstDeliver && firstDeliver?.destinies.length > 1;
+
   return (
-    <TravelCardComponent.Root
-      style={{ borderWidth: 1, borderColor: "#DCDFE3", borderRadius: 16 }}
-    >
+    <CardComponent.Root onPress={() => router.navigate(`travel/${item.id}`)}>
       {/** HEADER - OK */}
-      <TravelCardComponent.Section
+      <CardComponent.Section
         style={{
           display: "flex",
           flexDirection: "row",
@@ -48,41 +51,35 @@ export function TravelCard({ item }: TravelCardProps) {
           backgroundColor: lightBackground,
         }}
       >
-        <TravelCardComponent.Section
+        <CardComponent.Section
           style={{ display: "flex", flexDirection: "column", gap: 1 }}
         >
           {/** Header Title */}
-          <TravelCardComponent.HeaderTitle>
+          <CardComponent.HeaderTitle>
             Viagem: {item.number}
-          </TravelCardComponent.HeaderTitle>
+          </CardComponent.HeaderTitle>
           {/** Header SubTitle */}
-          <TravelCardComponent.HeaderDescription>
+          <CardComponent.HeaderDescription>
             Contrato: {item.contractNumber}
-          </TravelCardComponent.HeaderDescription>
-        </TravelCardComponent.Section>
+          </CardComponent.HeaderDescription>
+        </CardComponent.Section>
 
         {/** Header Badge */}
-        <TravelCardComponent.Badge backgroundColor={normalBackground}>
+        <CardComponent.Badge backgroundColor={normalBackground}>
           {/** Badge Description */}
-          <TravelCardComponent.BadgeDescription>
+          <CardComponent.BadgeDescription>
             {travelStatusName}
-          </TravelCardComponent.BadgeDescription>
+          </CardComponent.BadgeDescription>
 
           {/** Badge Icon */}
-          <TravelCardComponent.Icon>
+          <CardComponent.Icon>
             <Icon size={14} color={colors.theme.white} strokeWidth={3} />
-          </TravelCardComponent.Icon>
-        </TravelCardComponent.Badge>
-      </TravelCardComponent.Section>
-      {/**
-       * aqui tem que ter:
-       * o numero
-       * o contrato
-       * o status
-       */}
+          </CardComponent.Icon>
+        </CardComponent.Badge>
+      </CardComponent.Section>
 
       {/** BODY */}
-      <TravelCardComponent.Section
+      <CardComponent.Section
         style={{
           flex: 1,
           flexDirection: "column",
@@ -92,14 +89,14 @@ export function TravelCard({ item }: TravelCardProps) {
         }}
       >
         {/** BODY HEADER - OK */}
-        <TravelCardComponent.Section
+        <CardComponent.Section
           style={{
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
           }}
         >
-          <TravelCardComponent.Section
+          <CardComponent.Section
             style={{
               width: "100%",
               flexDirection: "row",
@@ -108,22 +105,20 @@ export function TravelCard({ item }: TravelCardProps) {
             }}
           >
             {/** BODY AVATAR */}
-            <TravelCardComponent.Section
+            <CardComponent.Section
               style={{
                 flexDirection: "row",
                 gap: 12,
                 alignItems: "center",
               }}
             >
-              <TravelCardComponent.Avatar
-                avatarName={firstDeliver.clientName}
-              />
+              <CardComponent.Avatar avatarName={firstDeliver.clientName} />
 
               {/** BODY Title */}
-              <TravelCardComponent.BodyTitle>
+              <CardComponent.BodyTitle>
                 {firstDeliver.clientName}
-              </TravelCardComponent.BodyTitle>
-            </TravelCardComponent.Section>
+              </CardComponent.BodyTitle>
+            </CardComponent.Section>
             {hasMoreThanOneDeliver && (
               <View
                 style={{
@@ -146,14 +141,11 @@ export function TravelCard({ item }: TravelCardProps) {
                 </Text>
               </View>
             )}
-          </TravelCardComponent.Section>
-        </TravelCardComponent.Section>
+          </CardComponent.Section>
+        </CardComponent.Section>
 
         {/** BODY CONTENT */}
-        <TravelCardComponent.Section
-          style={{ flexDirection: "column", gap: 20 }}
-        >
-          {/** Travel origin */}
+        <CardComponent.Section style={{ flexDirection: "column", gap: 20 }}>
           <View>
             <Text
               style={{
@@ -186,6 +178,7 @@ export function TravelCard({ item }: TravelCardProps) {
               {firstDeliver.origin.address}
             </Text>
           </View>
+
           <View>
             <Text
               style={{
@@ -205,7 +198,7 @@ export function TravelCard({ item }: TravelCardProps) {
                 fontSize: 16,
               }}
             >
-              {firstDeliver.destiny.city}
+              {firstDestiny.city}
             </Text>
             <Text
               style={{
@@ -215,18 +208,20 @@ export function TravelCard({ item }: TravelCardProps) {
                 fontSize: 16,
               }}
             >
-              {firstDeliver.destiny.address}
+              {firstDestiny.address}
             </Text>
           </View>
-        </TravelCardComponent.Section>
-        <Link href={`travel/${item.id}`} asChild>
-          <Button
-            title="Ver mais destinos"
-            variant="text"
-            style={{ alignSelf: "flex-end" }}
-          />
-        </Link>
-      </TravelCardComponent.Section>
+        </CardComponent.Section>
+        {hasMoreThanOneDestiny && (
+          <Link href={`travel/${item.id}`} asChild>
+            <Button
+              title="Ver mais destinos"
+              variant="text"
+              style={{ alignSelf: "flex-end" }}
+            />
+          </Link>
+        )}
+      </CardComponent.Section>
       {/**
        * aqui tem que ter
        * products
@@ -245,7 +240,7 @@ export function TravelCard({ item }: TravelCardProps) {
        * products
        * product[0].name
        */}
-      <TravelCardComponent.Section
+      <CardComponent.Section
         style={{
           flexDirection: "row",
           flexWrap: "wrap",
@@ -257,50 +252,44 @@ export function TravelCard({ item }: TravelCardProps) {
         }}
       >
         {/** 1° Linha */}
-        <TravelCardComponent.Section
+        <CardComponent.Section
           style={{ flexDirection: "column", width: "65%" }}
         >
-          <TravelCardComponent.FooterTitle>
-            Valor da viagem
-          </TravelCardComponent.FooterTitle>
+          <CardComponent.FooterTitle>Valor da viagem</CardComponent.FooterTitle>
 
-          <TravelCardComponent.FooterDescription>
+          <CardComponent.FooterDescription>
             {toMoney(item.totalValue)}
-          </TravelCardComponent.FooterDescription>
-        </TravelCardComponent.Section>
+          </CardComponent.FooterDescription>
+        </CardComponent.Section>
 
-        <TravelCardComponent.Section style={{ width: "35%" }}>
-          <TravelCardComponent.ProductBadge
+        <CardComponent.Section style={{ width: "35%" }}>
+          <CardComponent.ProductBadge
             productName={firstProduct.name}
             moreProductsQuantity={hasMoreThanOneProduct && moreProductsQuantity}
           />
-        </TravelCardComponent.Section>
+        </CardComponent.Section>
 
         {/** 2° Linha */}
-        <TravelCardComponent.Section
+        <CardComponent.Section
           style={{ flexDirection: "column", width: "65%" }}
         >
-          <TravelCardComponent.FooterTitle>
-            Saldo pendente
-          </TravelCardComponent.FooterTitle>
+          <CardComponent.FooterTitle>Saldo pendente</CardComponent.FooterTitle>
 
-          <TravelCardComponent.FooterDescription>
+          <CardComponent.FooterDescription>
             {toMoney(item.outstandingValue)}
-          </TravelCardComponent.FooterDescription>
-        </TravelCardComponent.Section>
+          </CardComponent.FooterDescription>
+        </CardComponent.Section>
 
-        <TravelCardComponent.Section
+        <CardComponent.Section
           style={{ flexDirection: "column", width: "35%" }}
         >
-          <TravelCardComponent.FooterTitle>
-            Embarcador
-          </TravelCardComponent.FooterTitle>
+          <CardComponent.FooterTitle>Embarcador</CardComponent.FooterTitle>
 
-          <TravelCardComponent.FooterDescription>
+          <CardComponent.FooterDescription>
             {item.shipperName}
-          </TravelCardComponent.FooterDescription>
-        </TravelCardComponent.Section>
-      </TravelCardComponent.Section>
-    </TravelCardComponent.Root>
+          </CardComponent.FooterDescription>
+        </CardComponent.Section>
+      </CardComponent.Section>
+    </CardComponent.Root>
   );
 }

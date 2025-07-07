@@ -11,7 +11,7 @@ import { TravelCardFooterTitle } from "./FooterTitle";
 import { TravelCardFooterDescription } from "./FooterDescription";
 import { TravelCardProductBadge } from "./ProductBadge";
 
-export const TravelCardComponent = {
+export const CardComponent = {
   Root: TravelCardRoot,
   Section: TravelCardSection,
   Icon: TravelCardIcon,

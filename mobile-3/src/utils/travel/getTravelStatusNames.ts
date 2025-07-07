@@ -3,7 +3,7 @@ import { TravelStatusEnum } from "@/types/travel/travel.type";
 export const getTravelStatusName = (currentStatus?: TravelStatusEnum) => {
   const nameMap: Record<TravelStatusEnum, string> = {
     [TravelStatusEnum.PRE_SCHEDULING]: "Pré Agendamento",
-    [TravelStatusEnum.PRE_SCHEDULE]: "",
+    [TravelStatusEnum.PROCESSING_SCHEDULE]: "Processando Agendamento",
     [TravelStatusEnum.SCHEDULED]: "Agendado",
     [TravelStatusEnum.IN_PROGRESS]: "Em Andamento",
     [TravelStatusEnum.PROCESSING_DISCHARGE]: "Processando quitação",

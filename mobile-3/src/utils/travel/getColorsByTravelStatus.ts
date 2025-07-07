@@ -8,7 +8,7 @@ export const getColorsByTravelStatus = (currentStatus?: TravelStatusEnum) => {
         normal: colors.states.preScheduling,
         light: colors.states.preSchedulingLight,
       },
-      [TravelStatusEnum.PRE_SCHEDULE]: {
+      [TravelStatusEnum.PROCESSING_SCHEDULE]: {
         normal: colors.states.processingSchedule,
         light: colors.states.processingScheduleLight,
       },

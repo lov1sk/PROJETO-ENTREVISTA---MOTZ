@@ -16,7 +16,7 @@ import {
 export const getIconByTravelStatus = (currentStatus?: TravelStatusEnum) => {
   const iconMap: Record<TravelStatusEnum, LucideIcon> = {
     [TravelStatusEnum.PRE_SCHEDULING]: FileText,
-    [TravelStatusEnum.PRE_SCHEDULE]: Cog,
+    [TravelStatusEnum.PROCESSING_SCHEDULE]: Cog,
     [TravelStatusEnum.SCHEDULED]: CalendarCheck,
     [TravelStatusEnum.IN_PROGRESS]: Truck,
     [TravelStatusEnum.PROCESSING_DISCHARGE]: CircleDollarSign,

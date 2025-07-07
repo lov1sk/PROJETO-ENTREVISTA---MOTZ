@@ -1,4 +1,5 @@
 import { colors } from "@/theme/colors";
+import { getCardAvatarBackgroundColor } from "@/utils/travel/getCardAvatarBackgroundColor";
 import { ReactNode } from "react";
 import { Text, View } from "react-native";
 
@@ -13,8 +14,8 @@ export function TravelCardAvatar({ avatarName }: TravelCardAvatarProps) {
         height: 40,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 14,
-        backgroundColor: "#22A06B",
+        borderRadius: 12,
+        backgroundColor: getCardAvatarBackgroundColor(),
       }}
     >
       <Text
@@ -32,10 +33,3 @@ export function TravelCardAvatar({ avatarName }: TravelCardAvatarProps) {
     </View>
   );
 }
-// font-family: Roboto;
-// font-weight: 400;
-// font-style: Regular;
-// font-size: 16px;
-// leading-trim: NONE;
-// line-height: 100%;
-// letter-spacing: 0%;

@@ -14,7 +14,7 @@ type LoadingSpinnerProps = {
 const AnimatedLoaderCircle = Animated.createAnimatedComponent(LoaderCircle);
 export function LoadingSpinner({
   size = 24,
-  color = "black",
+  color = colors.theme.orange,
   style,
 }: LoadingSpinnerProps) {
   const spinAnim = useRef(new Animated.Value(0)).current;
@@ -39,7 +39,7 @@ export function LoadingSpinner({
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <AnimatedLoaderCircle
         size={size}
-        color={colors.theme.orange}
+        color={color}
         style={[
           {
             transform: [{ rotate: spin }],
