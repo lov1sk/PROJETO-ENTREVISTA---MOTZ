@@ -1,6 +1,6 @@
 export enum TravelStatusEnum {
   PRE_SCHEDULING = 'pre-scheduling',
-  PRE_SCHEDULE = 'pre-schedule',
+  PROCESSING_SCHEDULE = 'processing-schedule',
   SCHEDULED = 'scheduled',
   IN_PROGRESS = 'in-progress',
   PROCESSING_DISCHARGE = 'processing-discharge',

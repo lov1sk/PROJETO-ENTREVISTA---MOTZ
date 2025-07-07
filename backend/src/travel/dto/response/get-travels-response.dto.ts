@@ -14,10 +14,10 @@ export class GetTravelsResponseDto {
       city: string;
       address: string;
     };
-    destiny: {
+    destinies: {
       city: string;
       address: string;
-    };
+    }[];
   }[];
   products: {
     id: string;

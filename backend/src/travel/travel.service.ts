@@ -5,6 +5,8 @@ import { GetTravelsResponseDto } from './dto/response/get-travels-response.dto';
 import { GetTravelsRequestDto } from './dto/request/get-travels-request.dto';
 import { GetTravelDetailsResponseDto } from './dto/response/get-travel-details-response.dto';
 import { TRAVELS_MOCK } from '../common/mocks/travels.mock';
+import { TravelDocumentEnum } from './enums/travel-document-type.enum';
+import { GetTravelDocumentsResponseDto } from './dto/response/get-travel-documents-response.dto';
 
 @Injectable()
 export class TravelService {
@@ -34,13 +36,13 @@ export class TravelService {
           clientId: deliver.clientId,
           clientName: deliver.client.name,
           origin: {
-            address: deliver.originDestiny.originAddress,
-            city: deliver.originDestiny.originCity,
+            address: deliver.origin.address,
+            city: deliver.origin.city,
           },
-          destiny: {
-            address: deliver.originDestiny.destinationAddress,
-            city: deliver.originDestiny.destinationCity,
-          },
+          destinies: deliver.destinies.map((i) => ({
+            address: i.address,
+            city: i.city,
+          })),
         });
       }
 
@@ -68,7 +70,7 @@ export class TravelService {
     const travel = TRAVELS_MOCK.find((i) => i.id === id);
 
     if (!travel) {
-      throw new NotFoundException(`A Viagem com id ${id} não foi encontrada`);
+      throw new NotFoundException(`A Viagem: ${id} não foi encontrada`);
     }
 
     const { totalValue, totalDistanceInKm } = this.getTravelTotalValues(travel);
@@ -100,13 +102,13 @@ export class TravelService {
         clientId: deliver.clientId,
         clientName: deliver.client.name,
         origin: {
-          address: deliver.originDestiny.originAddress,
-          city: deliver.originDestiny.originCity,
+          address: deliver.origin.address,
+          city: deliver.origin.city,
         },
-        destiny: {
-          address: deliver.originDestiny.destinationAddress,
-          city: deliver.originDestiny.destinationCity,
-        },
+        destinies: deliver.destinies.map((i) => ({
+          address: i.address,
+          city: i.city,
+        })),
       });
     }
     return new GetTravelDetailsResponseDto({
@@ -127,22 +129,41 @@ export class TravelService {
     });
   }
 
+  getTravelDocuments(id: string) {
+    const travel = TRAVELS_MOCK.find((i) => i.id === id);
+
+    if (!travel) {
+      throw new NotFoundException(`A Viagem: ${id} não foi encontrada`);
+    }
+
+    const documents = travel.delivers.flatMap((deliver) => deliver.documents);
+
+    return new GetTravelDocumentsResponseDto({
+      id: travel.id,
+      number: travel.number,
+      contractNumber: travel.contractNumber,
+      documents,
+    });
+  }
+
   private getTravelTotalValues(travel: (typeof TRAVELS_MOCK)[0]) {
     let totalValue = 0;
     let totalDistanceInKm = 0;
 
     for (const deliver of travel.delivers) {
       totalValue += deliver.products.reduce((acc, item) => acc + item.value, 0);
-      totalDistanceInKm += LocationUtils.getDistanceBetweenCoordinates(
-        {
-          latitude: deliver.originDestiny.originLatitude,
-          longitude: deliver.originDestiny.originLongitude,
-        },
-        {
-          latitude: deliver.originDestiny.destinationLatitude,
-          longitude: deliver.originDestiny.destinationLongitude,
-        },
-      );
+      for (const destiny of deliver.destinies) {
+        totalDistanceInKm += LocationUtils.getDistanceBetweenCoordinates(
+          {
+            latitude: deliver.origin.latitude,
+            longitude: deliver.origin.longitude,
+          },
+          {
+            latitude: destiny.latitude,
+            longitude: destiny.longitude,
+          },
+        );
+      }
     }
 
     return {

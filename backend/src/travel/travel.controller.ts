@@ -27,4 +27,11 @@ export class TravelController {
     await new Promise((resolve) => setTimeout(() => resolve('OK'), 1000 * 3));
     return this.travelService.getTravelDetails(id);
   }
+
+  @Get(':id/document')
+  @HttpCode(HttpStatus.OK)
+  async getTravelDocuments(@Param('id') id: string) {
+    await new Promise((resolve) => setTimeout(() => resolve('OK'), 1000 * 3));
+    return this.travelService.getTravelDocuments(id);
+  }
 }
