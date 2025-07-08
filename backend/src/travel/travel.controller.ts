@@ -16,22 +16,22 @@ export class TravelController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getTravels(@Query('status') status: TravelStatusEnum) {
-    await new Promise((resolve) => setTimeout(() => resolve('OK'), 1000 * 3));
+  async getTravels(@Query('status') status?: TravelStatusEnum) {
+    // await new Promise((resolve) => setTimeout(() => resolve('OK'), 1000 * 3));
     return this.travelService.getTravels(new GetTravelsRequestDto({ status }));
   }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   async getTravelDetails(@Param('id') id: string) {
-    await new Promise((resolve) => setTimeout(() => resolve('OK'), 1000 * 3));
+    // await new Promise((resolve) => setTimeout(() => resolve('OK'), 1000 * 3));
     return this.travelService.getTravelDetails(id);
   }
 
   @Get(':id/document')
   @HttpCode(HttpStatus.OK)
   async getTravelDocuments(@Param('id') id: string) {
-    await new Promise((resolve) => setTimeout(() => resolve('OK'), 1000 * 3));
+    // await new Promise((resolve) => setTimeout(() => resolve('OK'), 1000 * 3));
     return this.travelService.getTravelDocuments(id);
   }
 }

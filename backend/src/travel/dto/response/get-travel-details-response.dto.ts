@@ -31,6 +31,7 @@ export class GetTravelDetailsResponseDto {
   }[];
   totalValue: number;
   totalDistanceInKm: number;
+  helpersQuantity: number;
 
   constructor(data: GetTravelDetailsResponseDto) {
     Object.assign(this, data);

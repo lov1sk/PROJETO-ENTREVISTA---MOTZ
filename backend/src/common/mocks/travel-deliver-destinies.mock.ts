@@ -14,7 +14,7 @@ export const TRAVEL_DELIVER_DESTINIES_MOCK = [
     latitude: -23.5913793, // VOTORANTIN CIMENTOS
     longitude: -47.4379295, // VOTORANTIN CIMENTOS
     zipcode: '18117725',
-    address: 'Av. Comendador Pereira Inácio, 16',
+    address: 'Av. Comendador Pereira Inácio, 16 ANY',
     city: 'São Paulo',
   },
   {
@@ -23,7 +23,7 @@ export const TRAVEL_DELIVER_DESTINIES_MOCK = [
     latitude: -23.6830495, // C/C Interlados
     longitude: -46.691677, // C/C Interlados
     zipcode: '04795100',
-    address: 'Av. das Nações Unidas, 23343 - Vila Almeida',
+    address: 'Av. das Nações Unidas, 23343 - Vila Almeida , C/C Interlagos 1',
     city: 'São Paulo',
   },
 
@@ -33,7 +33,7 @@ export const TRAVEL_DELIVER_DESTINIES_MOCK = [
     latitude: -23.5913793, // VOTORANTIN CIMENTOS
     longitude: -47.4379295, // VOTORANTIN CIMENTOS
     zipcode: '18117725',
-    address: 'Av. Comendador Pereira Inácio, 16',
+    address: 'Av. Comendador Pereira Inácio, 16, Votorantin Cimentos 1',
     city: 'São Paulo',
   },
   {
@@ -42,7 +42,7 @@ export const TRAVEL_DELIVER_DESTINIES_MOCK = [
     latitude: -23.5913793, // VOTORANTIN CIMENTOS
     longitude: -47.4379295, // VOTORANTIN CIMENTOS
     zipcode: '18117725',
-    address: 'Av. Comendador Pereira Inácio, 16',
+    address: 'Av. Comendador Pereira Inácio, 16, Votorantin Cimentos 2',
     city: 'São Paulo',
   },
 ];

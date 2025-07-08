@@ -5,7 +5,6 @@ import { GetTravelsResponseDto } from './dto/response/get-travels-response.dto';
 import { GetTravelsRequestDto } from './dto/request/get-travels-request.dto';
 import { GetTravelDetailsResponseDto } from './dto/response/get-travel-details-response.dto';
 import { TRAVELS_MOCK } from '../common/mocks/travels.mock';
-import { TravelDocumentEnum } from './enums/travel-document-type.enum';
 import { GetTravelDocumentsResponseDto } from './dto/response/get-travel-documents-response.dto';
 
 @Injectable()
@@ -19,20 +18,16 @@ export class TravelService {
       if (status && travel.status !== status) {
         continue;
       }
-      const travelProducts: GetTravelsResponseDto['products'] = [];
-      const travelDeliveries: GetTravelsResponseDto['deliveries'] = [];
-
-      for (const deliver of travel.delivers) {
-        // products
-        for (const product of deliver.products) {
-          travelProducts.push({
+      const travelProducts: GetTravelsResponseDto['products'] =
+        travel.delivers.flatMap((deliver) =>
+          deliver.products.map((product) => ({
             id: product.id,
             name: product.name,
             value: product.value,
-          });
-        }
-
-        travelDeliveries.push({
+          })),
+        );
+      const travelDeliveries: GetTravelsResponseDto['deliveries'] =
+        travel.delivers.map((deliver) => ({
           clientId: deliver.clientId,
           clientName: deliver.client.name,
           origin: {
@@ -43,10 +38,10 @@ export class TravelService {
             address: i.address,
             city: i.city,
           })),
-        });
-      }
+        }));
 
-      const { totalValue } = this.getTravelTotalValues(travel);
+      const { totalValue, outstandingValue } =
+        this.getTravelTotalValues(travel);
       response.push(
         new GetTravelsResponseDto({
           id: travel.id,
@@ -56,7 +51,7 @@ export class TravelService {
           shipperId: travel.shipperId,
           shipperName: travel.shipper.name,
           totalValue: totalValue,
-          outstandingValue: NumberUtils.nb2(totalValue * 0.2543),
+          outstandingValue,
           products: travelProducts,
           deliveries: travelDeliveries,
         }),
@@ -75,30 +70,8 @@ export class TravelService {
 
     const { totalValue, totalDistanceInKm } = this.getTravelTotalValues(travel);
 
-    const travelDeliveries: GetTravelDetailsResponseDto['deliveries'] = [];
-    const travelProducts: GetTravelDetailsResponseDto['products'] = [];
-    const travelDocuments: GetTravelDetailsResponseDto['documents'] = [];
-
-    for (const deliver of travel.delivers) {
-      // products
-      for (const product of deliver.products) {
-        travelProducts.push({
-          id: product.id,
-          name: product.name,
-          value: product.value,
-        });
-      }
-
-      for (const document of deliver.documents) {
-        travelDocuments.push({
-          id: document.id,
-          name: document.name,
-          downloadUrl: document.downloadUrl,
-          type: document.type,
-        });
-      }
-
-      travelDeliveries.push({
+    const travelDeliveries: GetTravelDetailsResponseDto['deliveries'] =
+      travel.delivers.map((deliver) => ({
         clientId: deliver.clientId,
         clientName: deliver.client.name,
         origin: {
@@ -109,23 +82,40 @@ export class TravelService {
           address: i.address,
           city: i.city,
         })),
-      });
-    }
+      }));
+
+    const travelProducts: GetTravelDetailsResponseDto['products'] =
+      travel.delivers.flatMap((deliver) =>
+        deliver.products.map((product) => ({
+          id: product.id,
+          name: product.name,
+          value: product.value,
+        })),
+      );
+
+    const travelDocuments: GetTravelDetailsResponseDto['documents'] =
+      travel.delivers.flatMap((deliver) =>
+        deliver.documents.map((document) => ({
+          id: document.id,
+          name: document.name,
+          downloadUrl: document.downloadUrl,
+          type: document.type,
+        })),
+      );
+
     return new GetTravelDetailsResponseDto({
       id: travel.id,
       number: travel.number,
       contractNumber: travel.contractNumber,
       status: travel.status,
 
-      // another-endpoint
       deliveries: travelDeliveries,
       products: travelProducts,
       documents: travelDocuments,
 
-      // market-values
       totalValue,
       totalDistanceInKm,
-      // platesQuantity:1
+      helpersQuantity: travel.helpersQuantity,
     });
   }
 
@@ -169,6 +159,7 @@ export class TravelService {
     return {
       totalValue: NumberUtils.nb2(totalValue),
       totalDistanceInKm: NumberUtils.nb2(totalDistanceInKm),
+      outstandingValue: NumberUtils.nb2(totalValue * 0.2543),
     };
   }
 }
