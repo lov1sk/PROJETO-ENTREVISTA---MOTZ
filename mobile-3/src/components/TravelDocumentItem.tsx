@@ -2,20 +2,16 @@ import { colors } from "@/theme/colors";
 import {
   GetTravelDetailsResponse,
   TravelDocumentEnum,
+  TravelDocumentsItem,
 } from "@/types/travel/travel.type";
 import { getIconByTravelDocumentTypeStatus } from "@/utils/travel/getIconByTravelDocumentType";
 import { getTravelDocumentName } from "@/utils/travel/getTravelDocumentName";
 import { Text, View } from "react-native";
 
-interface TravelDocumentCardProps {
-  item: {
-    id: string;
-    name: string;
-    downloadUrl: string;
-    type: TravelDocumentEnum;
-  };
+interface TravelDocumentItemProps {
+  item: TravelDocumentsItem;
 }
-export function TravelDocumentCard({ item }: TravelDocumentCardProps) {
+export function TravelDocumentItem({ item }: TravelDocumentItemProps) {
   const Icon = getIconByTravelDocumentTypeStatus(item.type);
   const documentName = getTravelDocumentName(item.type);
   return (
@@ -28,8 +24,8 @@ export function TravelDocumentCard({ item }: TravelDocumentCardProps) {
         borderWidth: 1,
         borderColor: colors.theme.orange,
         borderRadius: 8,
-        width: 80,
-        height: 80,
+        width: 90,
+        height: 90,
       }}
     >
       <View style={{ padding: 6, gap: 4, alignItems: "center" }}>

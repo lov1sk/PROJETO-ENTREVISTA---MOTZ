@@ -1,10 +1,11 @@
 import { useGetTravels } from "@/api/queries/travelQueries";
+import { BottomTabImage } from "@/components/Tabs/BottomTabImage";
 import { FlatListEmptyComponent } from "@/components/FlatList/FlatListEmptyComponent";
 import { FlatListSeparator } from "@/components/FlatList/FlatListSeparator";
 import { LoadingSpinner } from "@/components/Loading/LoadingSpinner";
 import { Page } from "@/components/Page";
 import { TravelCard } from "@/components/TravelCard";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text } from "react-native";
 
 export default function TravelsPage() {
   const { data: travels = [], isFetching, error } = useGetTravels();
@@ -13,12 +14,8 @@ export default function TravelsPage() {
     return <LoadingSpinner size={96} />;
   }
 
-  if (error) {
-    return <Text>{error.message}</Text>;
-  }
-
   return (
-    <View style={{ flex: 1 }}>
+    <Page.Root>
       <Page.Header
         style={{
           flexDirection: "column",
@@ -27,16 +24,15 @@ export default function TravelsPage() {
           gap: 20,
         }}
       >
-        <Text style={{ fontSize: 20, fontWeight: 600, lineHeight: 26 }}>
-          Viagens
-        </Text>
-        <Text style={{ fontSize: 16, fontWeight: 400, lineHeight: 24 }}>
+        <Page.HeaderTitle>Viagens</Page.HeaderTitle>
+        <Page.HeaderDescription>
           Para saber mais sobre uma viagem, clique em uma opção abaixo.
-        </Text>
+        </Page.HeaderDescription>
       </Page.Header>
 
-      {/** PAGE CONTENT */}
-      <View style={{ flex: 1, margin: 16 }}>
+      {error && <Text>Erro: {error.message}</Text>}
+
+      <Page.Section style={{ flex: 1, margin: 16, marginBottom: 100 }}>
         <FlatList
           data={travels}
           keyExtractor={(item) => item.id}
@@ -47,7 +43,7 @@ export default function TravelsPage() {
           )}
         />
         {error && <Text>{error.message}</Text>}
-      </View>
-    </View>
+      </Page.Section>
+    </Page.Root>
   );
 }

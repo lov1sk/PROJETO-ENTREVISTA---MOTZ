@@ -1,13 +1,20 @@
-import { Button } from "@/components/Button/Button";
 import { Page } from "@/components/Page";
-import { Link, router } from "expo-router";
-import { Text, View } from "react-native";
 
 export default function WalletPage() {
   return (
     <Page.Root>
-      <Page.Header style={{ marginTop: 60, marginHorizontal: 24 }}>
-        <Text>Carteira</Text>
+      <Page.Header
+        style={{
+          flexDirection: "column",
+          marginTop: 60,
+          paddingHorizontal: 24,
+          gap: 20,
+        }}
+      >
+        <Page.HeaderTitle>Carteira</Page.HeaderTitle>
+        <Page.HeaderDescription>
+          Pagina para implementação de carteira.
+        </Page.HeaderDescription>
       </Page.Header>
     </Page.Root>
   );

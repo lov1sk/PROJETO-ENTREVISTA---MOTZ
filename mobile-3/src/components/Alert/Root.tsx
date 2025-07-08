@@ -24,7 +24,9 @@ export function AlertRoot({
         <View
           style={{
             backgroundColor: "#fff",
-            padding: 24,
+            paddingHorizontal: 24,
+            paddingTop: 24,
+            paddingBottom: 32,
             borderTopLeftRadius: 16,
             borderTopRightRadius: 16,
             width: "100%",

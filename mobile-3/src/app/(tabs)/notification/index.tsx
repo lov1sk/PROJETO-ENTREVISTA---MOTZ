@@ -6,8 +6,18 @@ import { Text, View } from "react-native";
 export default function NotificationsPage() {
   return (
     <Page.Root>
-      <Page.Header style={{ marginTop: 60, marginHorizontal: 24 }}>
-        <Text>Notificações</Text>
+      <Page.Header
+        style={{
+          flexDirection: "column",
+          marginTop: 60,
+          paddingHorizontal: 24,
+          gap: 20,
+        }}
+      >
+        <Page.HeaderTitle>Notificações</Page.HeaderTitle>
+        <Page.HeaderDescription>
+          Pagina para implementação de notificações
+        </Page.HeaderDescription>
       </Page.Header>
     </Page.Root>
   );

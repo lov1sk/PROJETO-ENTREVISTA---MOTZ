@@ -1,10 +1,10 @@
-import { GetTravelDetailsResponse } from "@/types/travel/travel.type";
+import { TravelProductsItem } from "@/types/travel/travel.type";
 import { AlertComponent } from "./Alert";
 
 interface TravelProductsAlertProps {
   visible: boolean;
   onClose: () => void;
-  products?: GetTravelDetailsResponse["products"];
+  products?: TravelProductsItem[];
 }
 export function TravelProductsAlert({
   visible,
@@ -16,7 +16,11 @@ export function TravelProductsAlert({
       <AlertComponent.Section style={{ flexDirection: "column" }}>
         <AlertComponent.Title>Produtos dessa viagem</AlertComponent.Title>
         <AlertComponent.Description>
-          {products?.reduce((acc, item, index) => acc + item.name + ", ", "")}
+          {products?.reduce((acc, item, index) => {
+            const isLastProduct = products?.length - 1 === index;
+
+            return acc + item.name + (isLastProduct ? "." : ", ");
+          }, "")}
         </AlertComponent.Description>
       </AlertComponent.Section>
     </AlertComponent.Root>

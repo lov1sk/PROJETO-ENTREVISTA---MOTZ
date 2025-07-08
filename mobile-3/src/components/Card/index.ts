@@ -10,9 +10,11 @@ import { TravelCardSection } from "./Section";
 import { TravelCardFooterTitle } from "./FooterTitle";
 import { TravelCardFooterDescription } from "./FooterDescription";
 import { TravelCardProductBadge } from "./ProductBadge";
+import { TravelCardPressable } from "./Pressable";
 
 export const CardComponent = {
   Root: TravelCardRoot,
+  Pressable: TravelCardPressable,
   Section: TravelCardSection,
   Icon: TravelCardIcon,
   Avatar: TravelCardAvatar,

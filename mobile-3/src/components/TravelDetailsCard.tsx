@@ -1,32 +1,29 @@
 import { colors } from "@/theme/colors";
-import { GetTravelDetailsResponse } from "@/types/travel/travel.type";
-import { Text, View } from "react-native";
+import {
+  GetTravelDetailsResponse,
+  TravelDeliverItem,
+} from "@/types/travel/travel.type";
+import { findNodeHandle, Text, UIManager, View } from "react-native";
 import { CardComponent } from "./Card";
 import { Button } from "./Button/Button";
+import { useRef, useState } from "react";
+import { TravelDeliverTimelineIndicator } from "./Card/Customized/TravelDeliverTimelineIndicator";
+import { TravelDeliverTimeline } from "./Card/Customized/TravelDeliverTimeLine";
 
 interface TravelDetailsCardProps {
-  deliver: {
-    clientId: string;
-    clientName: string;
-    origin: {
-      city: string;
-      address: string;
-    };
-    destinies: {
-      city: string;
-      address: string;
-    }[];
-  };
+  deliver: TravelDeliverItem;
+  setDeliver: (state: TravelDeliverItem) => void;
   setConfirmDeliverAlertOpen: (state: boolean) => void;
   setReturnDeliverAlertOpen: (state: boolean) => void;
+  setShowDestiniesAlertOpen: (state: boolean) => void;
 }
 export function TravelDetailsCard({
   deliver,
+  setDeliver,
   setConfirmDeliverAlertOpen,
   setReturnDeliverAlertOpen,
+  setShowDestiniesAlertOpen,
 }: TravelDetailsCardProps) {
-  const firstDestiny = deliver?.destinies[0];
-  const hasMoreThanOneDestiny = deliver?.destinies.length > 1;
   return (
     <View
       style={{
@@ -64,79 +61,14 @@ export function TravelDetailsCard({
         </CardComponent.Section>
       </CardComponent.Section>
       {/** CONTENT */}
-      <CardComponent.Section style={{ flex: 1, gap: 20 }}>
-        <View>
-          <Text
-            style={{
-              color: "#FF5402",
-              letterSpacing: -0.25,
-              fontWeight: 700,
-              fontSize: 14,
-            }}
-          >
-            Origem:
-          </Text>
-          <Text
-            style={{
-              color: "#373737",
-              letterSpacing: -0.25,
-              fontWeight: 700,
-              fontSize: 16,
-            }}
-          >
-            {deliver.origin.city}
-          </Text>
-          <Text
-            style={{
-              color: "#373737",
-              letterSpacing: -0.25,
-              fontWeight: 400,
-              fontSize: 16,
-            }}
-          >
-            {deliver.origin.address}
-          </Text>
-        </View>
-        <View>
-          <Text
-            style={{
-              color: "#FF5402",
-              letterSpacing: -0.25,
-              fontWeight: 700,
-              fontSize: 14,
-            }}
-          >
-            Destino:
-          </Text>
-          <Text
-            style={{
-              color: "#373737",
-              letterSpacing: -0.25,
-              fontWeight: 700,
-              fontSize: 16,
-            }}
-          >
-            {firstDestiny.city}
-          </Text>
-          <Text
-            style={{
-              color: "#373737",
-              letterSpacing: -0.25,
-              fontWeight: 400,
-              fontSize: 16,
-            }}
-          >
-            {firstDestiny.address}
-          </Text>
-        </View>
-        {hasMoreThanOneDestiny && (
-          <Button
-            title="Ver mais destinos"
-            variant="text"
-            style={{ alignSelf: "flex-end" }}
-          />
-        )}
-      </CardComponent.Section>
+      <TravelDeliverTimeline
+        deliver={deliver}
+        handlePress={() => {
+          setDeliver(deliver);
+          setShowDestiniesAlertOpen(true);
+        }}
+      />
+
       <CardComponent.Section
         style={{
           flexDirection: "column",

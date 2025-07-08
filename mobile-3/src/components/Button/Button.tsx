@@ -1,4 +1,5 @@
 import { colors } from "@/theme/colors";
+import { LucideIcon } from "lucide-react-native";
 import {
   StyleSheet,
   Text,
@@ -12,6 +13,8 @@ interface ButtonProps extends TouchableOpacityProps {
   title: string;
   variant?: ButtonVariants;
   fullWidth?: boolean;
+  startIcon?: LucideIcon;
+  endIcon?: LucideIcon;
 }
 
 export function Button({
@@ -19,6 +22,8 @@ export function Button({
   variant = "contained",
   fullWidth = false,
   style,
+  startIcon: StartIcon,
+  endIcon: EndIcon,
   ...props
 }: ButtonProps) {
   const variantStyle = stylesByVariant[variant];
@@ -34,7 +39,11 @@ export function Button({
       ]}
       {...props}
     >
+      {StartIcon && <StartIcon size={16} color={textColor} strokeWidth={3} />}
+
       <Text style={[styles.textBase, { color: textColor }]}>{title}</Text>
+
+      {EndIcon && <EndIcon size={16} color={textColor} strokeWidth={3} />}
     </TouchableOpacity>
   );
 }
@@ -43,6 +52,7 @@ const styles = StyleSheet.create({
   base: {
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "row",
     paddingHorizontal: 16,
     height: 48,
     borderWidth: 2,

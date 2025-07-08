@@ -16,6 +16,7 @@ export function TravelCardProductBadge({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+        maxWidth: 120,
         gap: 4,
         borderRadius: 16,
         backgroundColor: "#373737",
@@ -24,11 +25,19 @@ export function TravelCardProductBadge({
         paddingVertical: 4,
       }}
     >
-      <Text
-        style={{ fontSize: 14, color: colors.theme.white, fontWeight: 700 }}
-      >
-        {productName}
-      </Text>
+      <View style={{ maxWidth: "70%" }}>
+        <Text
+          style={{
+            fontSize: 14,
+            color: colors.theme.white,
+            fontWeight: 700,
+          }}
+        >
+          {productName.length > 15
+            ? productName.substring(0, 15).concat("...")
+            : productName}
+        </Text>
+      </View>
       {moreProductsQuantity && (
         <View
           style={{

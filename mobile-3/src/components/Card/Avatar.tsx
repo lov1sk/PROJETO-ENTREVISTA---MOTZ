@@ -1,21 +1,22 @@
 import { colors } from "@/theme/colors";
 import { getCardAvatarBackgroundColor } from "@/utils/travel/getCardAvatarBackgroundColor";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { Text, View } from "react-native";
 
 interface TravelCardAvatarProps {
   avatarName: string;
 }
 export function TravelCardAvatar({ avatarName }: TravelCardAvatarProps) {
+  const avatarBackgroundColor = useMemo(getCardAvatarBackgroundColor, []);
   return (
     <View
       style={{
-        width: 40,
-        height: 40,
+        width: 48,
+        height: 48,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 12,
-        backgroundColor: getCardAvatarBackgroundColor(),
+        backgroundColor: avatarBackgroundColor,
       }}
     >
       <Text

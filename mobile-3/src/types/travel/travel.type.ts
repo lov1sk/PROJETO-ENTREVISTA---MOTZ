@@ -23,23 +23,8 @@ export interface GetTravelsResponseItem {
   status: TravelStatusEnum;
   totalValue: number;
   outstandingValue: number;
-  deliveries: {
-    clientId: string;
-    clientName: string;
-    origin: {
-      city: string;
-      address: string;
-    };
-    destinies: {
-      city: string;
-      address: string;
-    }[];
-  }[];
-  products: {
-    id: string;
-    name: string;
-    value: number;
-  }[];
+  deliveries: TravelDeliverItem[];
+  products: TravelProductsItem[];
   shipperId: string;
   shipperName: string;
 }
@@ -49,41 +34,43 @@ export interface GetTravelDetailsResponse {
   number: number;
   contractNumber: string;
   status: TravelStatusEnum;
-  deliveries: {
-    clientId: string;
-    clientName: string;
-    origin: {
-      city: string;
-      address: string;
-    };
-    destinies: {
-      city: string;
-      address: string;
-    }[];
-  }[];
-  products: {
-    id: string;
-    name: string;
-    value: number;
-  }[];
-  documents: {
-    id: string;
-    name: string;
-    downloadUrl: string;
-    type: TravelDocumentEnum;
-  }[];
+  deliveries: TravelDeliverItem[];
+  products: TravelProductsItem[];
+  documents: TravelDocumentsItem[];
   totalValue: number;
   totalDistanceInKm: number;
+  helpersQuantity: number;
 }
 
 export interface GetTravelDocumentsResponse {
   id: string;
   number: number;
   contractNumber: string;
-  documents: {
-    id: string;
-    name: string;
-    downloadUrl: string;
-    type: TravelDocumentEnum;
+  documents: TravelDocumentsItem[];
+}
+
+export interface TravelDeliverItem {
+  clientId: string;
+  clientName: string;
+  origin: {
+    city: string;
+    address: string;
+  };
+  destinies: {
+    city: string;
+    address: string;
   }[];
+}
+
+export interface TravelProductsItem {
+  id: string;
+  name: string;
+  value: number;
+}
+
+export interface TravelDocumentsItem {
+  id: string;
+  name: string;
+  downloadUrl: string;
+  type: TravelDocumentEnum;
 }

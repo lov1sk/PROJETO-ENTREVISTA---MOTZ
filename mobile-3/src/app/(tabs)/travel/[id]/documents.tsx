@@ -2,10 +2,9 @@ import { useGetTravelDocuments } from "@/api/queries/travelQueries";
 import { CardComponent } from "@/components/Card";
 import { LoadingSpinner } from "@/components/Loading/LoadingSpinner";
 import { Page } from "@/components/Page";
-import { TravelDocumentCard } from "@/components/TravelDocumentCard";
-import { colors } from "@/theme/colors";
+import { TravelDetailsDocumentsCard } from "@/components/TravelDetailsDocumentsCard";
 import { useLocalSearchParams } from "expo-router";
-import { ScrollView, Text, View } from "react-native";
+import { Text } from "react-native";
 
 interface TravelDocumentParamsProps {
   id?: string;
@@ -18,14 +17,8 @@ export default function TravelDocuments() {
     error,
   } = useGetTravelDocuments({ id: params?.id });
 
-  const documents = travelDocuments?.documents;
-
   if (isFetching) {
     return <LoadingSpinner size={96} />;
-  }
-
-  if (error) {
-    return <Text>{error.message}</Text>;
   }
 
   return (
@@ -42,33 +35,11 @@ export default function TravelDocuments() {
           Documentos da viagem
         </Text>
       </Page.Header>
-      <Page.Section style={{ paddingHorizontal: 24 }}>
-        <CardComponent.Root>
-          <CardComponent.Section
-            style={{ paddingVertical: 20, paddingHorizontal: 16 }}
-          >
-            <CardComponent.HeaderTitle>
-              Viagem: {travelDocuments.number}
-            </CardComponent.HeaderTitle>
-            <CardComponent.HeaderDescription>
-              Contrato: {travelDocuments.contractNumber}
-            </CardComponent.HeaderDescription>
-          </CardComponent.Section>
-          <CardComponent.Section
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: 20,
-              paddingHorizontal: 16,
-              paddingBottom: 20,
-            }}
-          >
-            {documents.map((i) => (
-              <TravelDocumentCard item={i} key={i.id} />
-            ))}
-          </CardComponent.Section>
-        </CardComponent.Root>
+
+      {error && <Text>Erro: {error.message}</Text>}
+
+      <Page.Section style={{ marginTop: 30, paddingHorizontal: 24 }}>
+        <TravelDetailsDocumentsCard travelDocuments={travelDocuments} />
       </Page.Section>
     </Page.Root>
   );

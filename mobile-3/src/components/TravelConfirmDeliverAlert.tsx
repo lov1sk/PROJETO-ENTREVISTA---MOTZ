@@ -1,6 +1,4 @@
-import { GetTravelDetailsResponse } from "@/types/travel/travel.type";
 import { AlertComponent } from "./Alert";
-import { toLocaleString } from "@/utils/numberUtils";
 
 interface TravelConfirmDeliverAlertProps {
   visible: boolean;

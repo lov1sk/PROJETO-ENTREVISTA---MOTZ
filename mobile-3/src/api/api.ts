@@ -1,8 +1,7 @@
 import axios from "axios";
-import Constants from "expo-constants";
 
 export const api = axios.create({
-  baseURL: "http://192.168.18.50:3232",
+  baseURL: process.env.EXPO_PUBLIC_API_URL,
   timeout: 5 * 1000,
 });
 //172.20.10.4
